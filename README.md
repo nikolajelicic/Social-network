@@ -2,10 +2,11 @@ Project Name
 Social-network
 
 Description
-This is a social network made in laravel, it is currently under development.
+This is a social network made in Laravel, it is currently under development.
 
 Directory Structure
-1.Interfaces
+
+1. Interfaces
 Directory: app/Interfaces
 
 This directory contains PHP interfaces that define which methods should be implemented.

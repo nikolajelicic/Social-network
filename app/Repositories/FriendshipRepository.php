@@ -16,6 +16,13 @@ class FriendshipRepository implements FriendshipInterface{
         $friendship->friend_id = $receiverId;
         $friendship->status = 'pending';
         $friendship->save();
+        //send notification to the sender user that request is sent.
+        $notification = new Notification();
+        $notification->user_id = $receiverId;
+        $notification->notifiable_type = 'friend_request';
+        $notification->message = Auth::user()->name . " sent you a friend request";
+        $notification->read = 0;
+        $notification->save();
     }
 
     public function acceptFriendRequest($senderId)
@@ -29,10 +36,10 @@ class FriendshipRepository implements FriendshipInterface{
             $friendship->save();
             //send notification to the sender user that request is accepted.
             $notification = new Notification();
-            $notification->from_user_id = Auth::id();
-            $notification->to_user_id = $senderId;
-            $notification->message = Auth::user()->name . "has accepted your friend request.";
-            $notification->is_read = false;
+            $notification->user_id = $senderId;
+            $notification->notifiable_type = 'accepted_friend_request';
+            $notification->message = Auth::user()->name . " has accepted your friend request.";
+            $notification->read = 0;
             $notification->save();
         }else{
             return false;
@@ -58,6 +65,13 @@ class FriendshipRepository implements FriendshipInterface{
 
         if($friendRequest){
             $friendRequest->delete();
+            //send notification to the sender user that request is rejected.
+            $notification = new Notification();
+            $notification->user_id = $senderId;
+            $notification->notifiable_type = 'rejected_friend_request';
+            $notification->message = Auth::user()->name . " has rejected your friend request.";
+            $notification->read = 0;
+            $notification->save();
             return true;
         }else{
             return false;

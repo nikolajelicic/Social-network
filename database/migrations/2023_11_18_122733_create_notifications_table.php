@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('notifiable_id');
             $table->string('notifiable_type');
             $table->text('message');
             $table->boolean('read')->default(false);

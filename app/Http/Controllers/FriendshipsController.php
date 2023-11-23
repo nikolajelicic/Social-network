@@ -62,6 +62,7 @@ class FriendshipsController extends Controller
     {
         $senderId = $request->input('senderId');
         $this->friendshipService->acceptFriendRequest($senderId);
+        
         return response()->json(['success'=>true],200);
     }
 }

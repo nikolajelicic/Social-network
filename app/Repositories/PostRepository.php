@@ -13,7 +13,6 @@ class PostRepository implements PostInterface{
 
     public function createNewPost(CreateNewPostRequest $request)
     {
-        //$slug = Str::slug($request->input('content'));
         $limitedContent = Str::limit($request->input('content'), 26, '');
         $slug = Str::slug($limitedContent);
         $existingSlug = Post::where('slug', $slug)->first();

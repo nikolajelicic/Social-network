@@ -28,6 +28,9 @@
                             <a href="/add-friends" class="nav-link">Add friends</a>
                         </li>
                         <li class="nav-item">
+                            <a href="/notification" class="nav-link">Notification</a>
+                        </li>
+                        <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
     

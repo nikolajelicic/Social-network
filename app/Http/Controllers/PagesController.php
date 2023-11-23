@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Services\PageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FriendshipsController;
-
+use App\Services\NotificationService;
 
 class PagesController extends Controller
 {
     private $pageService;
+    private $notificationService;
     
-    public function __construct(PageService $pageService) 
+    public function __construct(PageService $pageService, NotificationService $notificationService) 
     {
         $this->pageService = $pageService;
+        $this->notificationService = $notificationService;
     }
 
     public function profilePage()
@@ -41,5 +43,17 @@ class PagesController extends Controller
         }
 
         return view('addFriends', ['dataForView' => $dataForView]);
+    }
+
+    public function notificationPage()
+    {
+        $count = $this->notificationService->countNotification();
+        $notications = $this->notificationService->getNotification();
+        foreach($notications as $notication){
+            if($notication->read == 0){
+                $this->notificationService->markAsRead($notication->id);
+            }
+        }
+        return view('notification',['count' => $count, 'notifications' => $notications]);
     }
 }

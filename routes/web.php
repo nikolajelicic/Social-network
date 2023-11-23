@@ -28,29 +28,35 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    //PageController routes
     Route::get('/profile', [PagesController::class, 'profilePage'])->name('profile.profilePage');
     Route::get('/edit-post/{id}', [PagesController::class, 'showEditPostPage'])->name('profile.showEditPostPage');
     Route::get('/add-friends', [PagesController::class, 'showAddFriendsPage'])->name('profile.addFriends');
+    Route::get('/notification', [PagesController::class, 'notificationPage'])->name('profile.notificationPage');
 
+    //LikesController routes
     Route::get('/like{id}', [LikesController::class, 'likePost'])->name('profile.likePost');
     Route::get('/unlike{id}', [LikesController::class, 'unlikePost'])->name('profile.unlikePost');
 
-
+    //CommentLikesController routes
     Route::get('/commentUnlike{id}', [CommentLikesController::class, 'unlikeComment'])->name('profile.commentUnlike');
     Route::get('/commentLike{id}', [CommentLikesController::class, 'likeComment'])->name('profile.commentLike');
     Route::delete('/delete-comment/{id}', [CommentsController::class, 'deleteComment'])->name('profile.deleteComment');
     Route::post('/new-comment', [CommentsController::class, 'newComment'])->name('profile.newComment');
 
+    //FriendshipsController routes
     Route::post('/add-new-friend',[FriendshipsController::class, 'sendFriendRequest'])->name('profile.newFriendRequest');
     Route::post('/delete-friend-request',[FriendshipsController::class, 'deleteFriendRequest'])->name('profile.deleteFriendRequest');
     Route::post('/delete-friend',[FriendshipsController::class, 'deleteFriendRequest'])->name('profile.deleteFriendRequest');
     Route::post('/accept-friend-request',[FriendshipsController::class, 'acceptFriendRequest'])->name('profile.acceptFriendRequest');
-    Route::get('/my-friends', [FriendshipsController::class, 'getFriends'])->name('profile.getFriends'); //treba ruta da se napravi
-    //post route
+    Route::get('/my-friends', [FriendshipsController::class, 'getFriends'])->name('profile.getFriends');
+
+    //PostsController routes
     Route::post('/createNewPost', [PostsController::class, 'createNewPost'])->name('post.new');
     Route::delete('/delete-post/{id}', [PostsController::class, 'deletePost'])->name('profile.deletePost');
-    //Route::put('/edit-post/{slug}', [PostsController::class, 'getPostBySlug'])->name('profile.getPostBySlug');
     Route::put('/editPost', [PostsController::class, 'editPost'])->name('profile.editPost');
+
+
     /*Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');*/

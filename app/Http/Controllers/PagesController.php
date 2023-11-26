@@ -56,4 +56,11 @@ class PagesController extends Controller
         }
         return view('notification',['count' => $count, 'notifications' => $notications]);
     }
+
+    public function showFriendPostsPage()
+    {
+        $data = $this->pageService->showFriendPostsPage();
+        //dd($data);
+        return view('friendPosts', ['data' => $data]);
+    }
 }

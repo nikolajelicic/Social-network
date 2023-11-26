@@ -14,9 +14,9 @@ class PostService {
         $this->postRepository = $postRepository;
     }
 
-    public function createNewPost(CreateNewPostRequest $request)
+    public function createNewPost($content)
     {   
-        $this->postRepository->createNewPost($request);
+        $this->postRepository->createNewPost($content);
     }
 
     public function editPost(CreateNewPostRequest $request)

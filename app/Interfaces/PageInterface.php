@@ -11,4 +11,6 @@ interface PageInterface{
     public function showEditPostPage(Request $request, $id);
 
     public function showAddFriendsPage();
+
+    public function showFriendPostsPage();
 }

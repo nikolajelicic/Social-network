@@ -24,6 +24,6 @@ class CommentsController extends Controller
     public function newComment(Request $request)
     {
         $this->commentService->newComment($request);
-        return redirect()->route('profile.profilePage')->with('message', 'Comment successfully created!');
+        return redirect()->back()->with('message', 'Comment successfully created!');
     }
 }

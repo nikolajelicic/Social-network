@@ -23,7 +23,7 @@ class CreateNewPostRequest extends FormRequest
     {
         return [
             'content' => ['required','min:25'],
-            'id' => 'numeric',
+            'id' => ['numeric'],
             'comment' => ['required', 'min:5']
         ];
     }

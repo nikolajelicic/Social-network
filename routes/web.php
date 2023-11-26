@@ -20,8 +20,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->middleware('guest');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit-post/{id}', [PagesController::class, 'showEditPostPage'])->name('profile.showEditPostPage');
     Route::get('/add-friends', [PagesController::class, 'showAddFriendsPage'])->name('profile.addFriends');
     Route::get('/notification', [PagesController::class, 'notificationPage'])->name('profile.notificationPage');
+    Route::get('/friend-posts', [PagesController::class, 'showFriendPostsPage'])->name('profile.showFriendPostsPage');
 
     //LikesController routes
     Route::get('/like{id}', [LikesController::class, 'likePost'])->name('profile.likePost');

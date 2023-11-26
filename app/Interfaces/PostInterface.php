@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 interface PostInterface{
 
-    public function createNewPost(CreateNewPostRequest $request);
+    public function createNewPost($content);
     
     public function deletePost(Request $request, $id);
 

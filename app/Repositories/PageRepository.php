@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\PageInterface;
 use App\Models\Comment;
+use App\Models\Friendship;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -69,5 +70,41 @@ class PageRepository implements PageInterface{
         })
         ->get();
         return $users;
+    }
+
+    public function showFriendPostsPage()
+    {
+        $friends = Friendship::where(function ($query) {
+            $query->where('user_id', auth()->id())
+                ->where('status', 'accepted');
+        })
+        ->orWhere(function ($query) {
+            $query->where('friend_id', auth()->id())
+                ->where('status', 'accepted');
+        })
+        ->get();
+        
+        $friendIds = collect();
+        
+        foreach($friends as $friend){
+            if($friend->user_id != auth()->id()){
+                $friendIds = $friendIds->merge([$friend->user_id]);
+            }else{
+                $friendIds = $friendIds->merge([$friend->friend_id]);
+            }
+        }
+        
+        $friendIds = $friendIds->unique(); // To remove any duplicate values
+
+        $posts = Post::whereIn('user_id', $friendIds)
+        ->withCount('likes')
+        ->with('user')
+        ->get();
+
+        $commentIds = Comment::whereIn('post_id', $posts->pluck('id'))->pluck('id');
+
+        $comments = Comment::whereIn('id', $commentIds)->get();
+
+        return compact('posts', 'comments');
     }
 }

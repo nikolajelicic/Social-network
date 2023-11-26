@@ -23,7 +23,13 @@ class PageService {
         return $this->pageRepository->showEditPostPage($request, $id);
     }
 
-    public function showAddFriendsPage(){
+    public function showAddFriendsPage()
+    {
         return $this->pageRepository->showAddFriendsPage();
+    }
+
+    public function showFriendPostsPage()
+    {
+        return $this->pageRepository->showFriendPostsPage();
     }
 }

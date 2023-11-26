@@ -15,9 +15,10 @@ class PostsController extends Controller
         $this->postService = $postService;
     }
 
-    public function createNewPost(CreateNewPostRequest $request)
+    public function createNewPost(Request $request)
     {
-        $this->postService->createNewPost($request);
+        $content = $request->input('content');
+        $this->postService->createNewPost($content);
         return redirect()->back()->with('message','Post successfully created!');
     }
 

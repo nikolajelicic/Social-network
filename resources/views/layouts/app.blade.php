@@ -22,7 +22,7 @@
                             <a href="/profile" class="nav-link">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/neewsfeed" class="nav-link">Neewsfeed</a>
+                            <a href="/friend-posts" class="nav-link">Friend posts</a>
                         </li>
                         <li class="nav-item">
                             <a href="/add-friends" class="nav-link">Add friends</a>

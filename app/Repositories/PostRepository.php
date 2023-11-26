@@ -11,9 +11,9 @@ use Illuminate\Support\Str;
 
 class PostRepository implements PostInterface{
 
-    public function createNewPost(CreateNewPostRequest $request)
+    public function createNewPost($content)
     {
-        $limitedContent = Str::limit($request->input('content'), 26, '');
+        $limitedContent = Str::limit($content, 26, '');
         $slug = Str::slug($limitedContent);
         $existingSlug = Post::where('slug', $slug)->first();
         if ($existingSlug) {
@@ -22,7 +22,7 @@ class PostRepository implements PostInterface{
 
         $post = new Post();
         $post->insert([
-            'content' => $request->input('content'),
+            'content' => $content,
             'slug' => $slug,
             'user_id' => Auth::id(),
             'created_at'=>now()

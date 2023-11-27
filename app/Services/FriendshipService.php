@@ -29,13 +29,18 @@ class FriendshipService {
         return $this->friendshipRepository->deleteFriendRequest($senderId, $receiverId);
     }
 
-    public function getFriends($userId)
+    public function getFriends()
     {
-        return $this->friendshipRepository->getFriends($userId);
+        return $this->friendshipRepository->getFriends();
     }
 
     public function acceptFriendRequest($senderId)
     {
         return $this->friendshipRepository->acceptFriendRequest($senderId);
+    }
+
+    public function friendRequests()
+    {
+        return $this->friendshipRepository->friendRequests();
     }
 }

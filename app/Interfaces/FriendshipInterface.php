@@ -12,9 +12,11 @@ interface FriendshipInterface{
 
     public function unfriend($userId, $friendId);
 
-    public function getFriends($userId);
+    public function getFriends();
 
     public function getFriendsStatus($userId);
 
     public function deleteFriendRequest($senderId, $receiverId);
+
+    public function friendRequests();
 }

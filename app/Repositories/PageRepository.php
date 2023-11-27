@@ -64,11 +64,22 @@ class PageRepository implements PageInterface{
 
     public function showAddFriendsPage()
     {
+        //Display of all users who are not friends of the registered user, and who have not been sent a friend request
+        $friendIds = Friendship::where('user_id', auth()->id())
+        ->orWhere('friend_id', auth()->id())
+        ->where('status', 'accepted')
+        ->pluck('friend_id');
+
         $users = User::where('id', '!=', auth()->id())
-        ->whereDoesntHave('friends', function ($query) {
-            $query->where('friend_id', auth()->id());
-        })
-        ->get();
+            ->whereNotIn('id', $friendIds)
+            ->whereDoesntHave('friendships', function ($query) {
+                $query->where(function ($subquery) {
+                    $subquery->where('user_id', auth()->id())
+                        ->orWhere('friend_id', auth()->id());
+                });
+            })
+            ->get();
+
         return $users;
     }
 

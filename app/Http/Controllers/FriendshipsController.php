@@ -46,23 +46,26 @@ class FriendshipsController extends Controller
 
     public function getFriends()
     {
-        $userId = auth()->id();
-        $friends = $this->friendshipService->getFriends($userId);
+        $friends = $this->friendshipService->getFriends();
         if($friends == null || count($friends) < 1){
-            return view('myFriend')->with('message', 'No friends');
+            return (['friends' => null]);
         }else{
-            foreach($friends as $friend){
-                dd($friend->user->name);
-            }
-            return view('myFriends', ['friends' => $friends]);
+            return (['friends' => $friends]);
         }
     }
 
-    public function acceptFriendRequest(CreateNewPostRequest $request)
+    public function acceptFriendRequest(Request $request)
     {
         $senderId = $request->input('senderId');
         $this->friendshipService->acceptFriendRequest($senderId);
         
         return response()->json(['success'=>true],200);
+    }
+
+    public function friendRequests()
+    {
+        $requests = $this->friendshipService->friendRequests();
+        
+        return $requests;
     }
 }

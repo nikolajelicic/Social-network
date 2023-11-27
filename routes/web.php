@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [PagesController::class, 'profilePage'])->name('profile.profilePage');
     Route::get('/edit-post/{id}', [PagesController::class, 'showEditPostPage'])->name('profile.showEditPostPage');
     Route::get('/add-friends', [PagesController::class, 'showAddFriendsPage'])->name('profile.addFriends');
+
+    Route::get('/friends-request', [PagesController::class, 'showFriendsRequest'])->name('profile.showFriendsRequest');
+    Route::get('/my-friends', [PagesController::class, 'myFriends'])->name('profile.myFriends');
+
     Route::get('/notification', [PagesController::class, 'notificationPage'])->name('profile.notificationPage');
     Route::get('/friend-posts', [PagesController::class, 'showFriendPostsPage'])->name('profile.showFriendPostsPage');
 

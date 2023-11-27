@@ -11,11 +11,13 @@ class PagesController extends Controller
 {
     private $pageService;
     private $notificationService;
+    private $friendshipsController;
     
-    public function __construct(PageService $pageService, NotificationService $notificationService) 
+    public function __construct(PageService $pageService, NotificationService $notificationService, FriendshipsController $friendshipsController) 
     {
         $this->pageService = $pageService;
         $this->notificationService = $notificationService;
+        $this->friendshipsController = $friendshipsController;
     }
 
     public function profilePage()
@@ -32,23 +34,18 @@ class PagesController extends Controller
 
     public function showAddFriendsPage()
     {
-        $data = $this->pageService->showAddFriendsPage();
-        $status = '';
-        $dataForView = [];
-        
-        foreach($data as $user){
-            $status = FriendshipsController::getFriendsStatus($user->id);
-            $newData = ['userData' => $user, 'status' => $status];
-            array_push($dataForView, $newData);
-        }
+        $users = $this->pageService->showAddFriendsPage();
+        $friends = $this->friendshipsController->getFriends();
+        $requests = $this->friendshipsController->friendRequests();
 
-        return view('addFriends', ['dataForView' => $dataForView]);
+        return view('addFriends', ['users' => $users, 'friends' => $friends, 'requests' => $requests]);
     }
 
     public function notificationPage()
     {
         $count = $this->notificationService->countNotification();
         $notications = $this->notificationService->getNotification();
+
         foreach($notications as $notication){
             if($notication->read == 0){
                 $this->notificationService->markAsRead($notication->id);

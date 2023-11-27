@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\FriendshipInterface;
 use App\Models\Friendship;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class FriendshipRepository implements FriendshipInterface{
@@ -16,6 +17,7 @@ class FriendshipRepository implements FriendshipInterface{
         $friendship->friend_id = $receiverId;
         $friendship->status = 'pending';
         $friendship->save();
+
         //send notification to the sender user that request is sent.
         $notification = new Notification();
         $notification->user_id = $receiverId;
@@ -34,6 +36,7 @@ class FriendshipRepository implements FriendshipInterface{
         if($friendship){
             $friendship->status = 'accepted';
             $friendship->save();
+
             //send notification to the sender user that request is accepted.
             $notification = new Notification();
             $notification->user_id = $senderId;
@@ -65,6 +68,7 @@ class FriendshipRepository implements FriendshipInterface{
 
         if($friendRequest){
             $friendRequest->delete();
+
             //send notification to the sender user that request is rejected.
             $notification = new Notification();
             $notification->user_id = $senderId;
@@ -83,20 +87,33 @@ class FriendshipRepository implements FriendshipInterface{
         //This method is implemented on deleteFriendRequest(), the code would be the same
     }
 
-    public function getFriends($userId)
+    public function getFriends()
     {
-        $friends = Friendship::where(function ($query) use ($userId) {
-            $query->where('user_id', $userId)
-                  ->where('status', 'accepted');
+        $friends = Friendship::where(function ($query) {
+            $query->where('user_id', auth()->id())
+                ->where('status', 'accepted');
         })
-        ->orWhere(function ($query) use ($userId) {
-            $query->where('friend_id', $userId)
-                  ->where('status', 'accepted');
+        ->orWhere(function ($query) {
+            $query->where('friend_id', auth()->id())
+                ->where('status', 'accepted');
         })
-        ->with('user')
         ->get();
-
-        return $friends;
+        
+        $friendIds = collect();
+        
+        foreach ($friends as $friend) {
+            if ($friend->user_id != auth()->id()) {
+                $friendIds = $friendIds->merge([$friend->user_id]);
+            } else {
+                $friendIds = $friendIds->merge([$friend->friend_id]);
+            }
+        }
+        
+        $friendIds = $friendIds->unique();
+    
+        $friendUsers = User::whereIn('id', $friendIds)->get();
+        //dd($friendUsers);
+        return $friendUsers;
     }
 
     public function getFriendsStatus($userId)
@@ -113,5 +130,15 @@ class FriendshipRepository implements FriendshipInterface{
         ->value('status');
 
         return $status;
+    }
+
+    public function friendRequests()
+    {
+        $requests = Friendship::where('friend_id',auth()->id())
+        ->where('status','pending')
+        ->with('user')
+        ->get();
+        //dd($requests);
+        return $requests;
     }
 }

@@ -19,4 +19,6 @@ interface FriendshipInterface{
     public function deleteFriendRequest($senderId, $receiverId);
 
     public function friendRequests();
+
+    public function sentRequests();
 }

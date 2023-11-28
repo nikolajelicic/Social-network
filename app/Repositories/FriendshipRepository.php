@@ -132,7 +132,7 @@ class FriendshipRepository implements FriendshipInterface{
         return $status;
     }
 
-    public function friendRequests()
+    public function friendRequests()//friend requests received by the logged in user 
     {
         $requests = Friendship::where('friend_id',auth()->id())
         ->where('status','pending')
@@ -140,5 +140,15 @@ class FriendshipRepository implements FriendshipInterface{
         ->get();
         //dd($requests);
         return $requests;
+    }
+
+    public function sentRequests()//friend requests sent by a logged in user
+    {
+        $sentRequests = Friendship::where('user_id',auth()->id())
+        ->where('status','pending')
+        ->with('friend')
+        ->get();
+
+        return $sentRequests;
     }
 }

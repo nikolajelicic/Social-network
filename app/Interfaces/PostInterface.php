@@ -14,4 +14,6 @@ interface PostInterface{
     public function editPost(CreateNewPostRequest $request);
 
     public function getPostBySlug(Request $request, $slug);
+
+    public function showLikes($postId);
 }

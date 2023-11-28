@@ -37,6 +37,16 @@ class PostsController extends Controller
     public function getPostBySlug(Request $request, $slug)
     {
         $this->postService->getPostBySlug($request, $slug);
-        return view('posts.show-post');
+        return view('posts.show-post'); //need to be implemented to view
+    }
+
+    public function showLikes(Request $request, $postId) //This will be updated to show only the ajax call, to return json and on the frontend it shows the modal and inside the modal who liked the post
+    {
+        $likes = $this->postService->showLikes($postId);
+        if($request->ajax()){
+            return response()->json(['data' => $likes]);
+        }else{
+            return view('posts.likes', ['likes' => $likes]);
+        }   
     }
 }

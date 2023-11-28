@@ -10,12 +10,13 @@ class NotificationRepository implements NotificationInterface {
 
     public function sendNotification($receiverId, $notificationType, $data = [])
     {
-        //inplementirati
+        //need to inplement
     }
 
     public function getNotification()
     {
         $notification = Notification::where('user_id', Auth::id())
+        ->orderByDesc('created_at')
         ->get();
 
         return $notification;

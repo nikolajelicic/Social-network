@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\CreateNewPostRequest;
 use App\Interfaces\PostInterface;
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,5 +60,14 @@ class PostRepository implements PostInterface{
         if($post){
             return $post;
         }
+    }
+
+    public function showLikes($postId)
+    {
+        $likes = Like::where('post_id', $postId)
+        ->with('user')
+        ->get();
+
+        return $likes;
     }
 }

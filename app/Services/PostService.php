@@ -33,4 +33,9 @@ class PostService {
     {
         return $this->postRepository->getPostBySlug($request, $slug);
     }
+
+    public function showLikes($postId)
+    {
+        return $this->postRepository->showLikes($postId);
+    }
 }

@@ -27,7 +27,7 @@
                           <div class="small d-flex justify-content-start">
                             <a href="#!" class="d-flex align-items-center me-3">
                               <i class="far fa-thumbs-up me-2"></i>
-                              <p class="mb-0">Total likes: {{ $post->likes_count }}</p>
+                              <a href="/showLikes/{{ $post->id }}" class="mb-0">Total likes: {{ $post->likes_count }}</a>
                             </a>
                             @php
                                 $userLiked = $post->likes->contains('user_id', Auth::id());
@@ -55,49 +55,8 @@
                           </div>
                         </div>
                         @foreach ($data['comments']->where('post_id', $post->id)->where('parent_id', null) as $comment)
-                          <div class="card mb-3 ml-4">
-                              <div class="card-body">
-                                  <h6 class="h6">Comment ovner: <a href="/friend-profile">{{ $comment->user->name }}</a></h6>
-                                  <p class="card-text">{{ $comment->content }}</p>
-                                    <form method="POST" class="d-flex" action="{{ route('profile.newComment') }}">
-                                        @csrf
-                                        <input placeholder="Enter your comment" type="text" name="comment" class="form-control">
-                                        <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                        <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                                        <button class="btn btn-success">Post comment</button>
-                                        @error('comment')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </form>
-                                    @foreach ($data['comments']->where('parent_id', $comment->id) as $subcomment)
-                                        <div class="card mb-2 ml-4">
-                                            @if($subcomment->user_id == auth()->id())    
-                                                <div class="card-body">
-                                                  <h6 class="h6">Comment ovner: <a href="/friend-profile">{{ $subcomment->user->name }}</a></h6>
-                                                  <form action="/delete-comment/{{ $subcomment->id }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger">Delete comment</button>
-                                                </form>
-                                                <a class="btn btn-info" href="/edit-comment/{{ $subcomment->id }}">Edit comment</a>
-                                            @endif
-                                                  <p class="card-text">{{ $subcomment->content }}</p>
-                                                  <form method="POST" class="d-flex" action="{{ route('profile.newComment') }}">
-                                                    @csrf
-                                                    <input placeholder="Enter your comment" type="text" name="comment" class="form-control">
-                                                    <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                                                    <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                                    <button class="btn btn-success">Post comment</button>
-                                                    @error('comment')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </form>
-                                              </div>
-                                        </div>
-                                    @endforeach
-                              </div>
-                          </div>
-                      @endforeach
+                            @include('partials.comment', ['comment' => $comment])
+                        @endforeach
                     </div>
                 </div>
             </div>

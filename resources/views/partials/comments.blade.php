@@ -4,12 +4,12 @@
             <form action="/unlikeComment{{ $comment->id }}" method="get">
                 @csrf
                 @method('delete')
-                <p class="justify-content-start"><strong>{{ Auth::user()->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: {{ $comment->likes_comment_count }} | <a class="link" href="/commentUnlike{{ $comment->id }}">Unlike</a></p>
+                <p class="justify-content-start"><strong>{{ Auth::user()->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentUnlike{{ $comment->id }}">Unlike</a></p>
             </form>
         @else
             <form action="/likeComment{{ $comment->id }}" method="get">
                 @csrf
-                <p class="justify-content-start"><strong>{{ Auth::user()->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: {{ $comment->likes_comment_count }} | <a class="link" href="/commentLike{{ $comment->id }}">Like</a></p>
+                <p class="justify-content-start"><strong>{{ Auth::user()->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentLike{{ $comment->id }}">Like</a></p>
             </form>
         @endif
         <div class="row">

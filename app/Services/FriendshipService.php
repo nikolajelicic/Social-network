@@ -43,4 +43,9 @@ class FriendshipService {
     {
         return $this->friendshipRepository->friendRequests();
     }
+
+    public function sentRequests()
+    {
+        return $this->friendshipRepository->sentRequests();
+    }
 }

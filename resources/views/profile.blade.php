@@ -34,7 +34,7 @@
                             <p class="justify-content-start">
                                 <strong>{{ Auth::user()->name }}</strong> 
                                 | Post created: {{ \Carbon\Carbon::parse($post->created_at)->format('D M j H:i:s') }} 
-                                | Total likes: {{ $post->likes_count }} | <a class="link" href="/unlike{{ $post->id }}">Unlike</a> 
+                                | Total likes: <a href="/showLikes/{{ $post->id }}">{{ $post->likes_count }}</a> | <a class="link" href="/unlike{{ $post->id }}">Unlike</a> 
                             </p>
                         </form>
                         <button class="btn btn-info"><a href="/edit-post/{{ $post->id }}">Edit</a></button>
@@ -49,7 +49,7 @@
                             <p class="justify-content-start">
                                 <strong>{{ Auth::user()->name }}</strong> 
                                 | Post created: {{ \Carbon\Carbon::parse($post->created_at)->format('D M j H:i:s') }} 
-                                | Total likes: {{ $post->likes_count }} | <a class="link" href="/like{{ $post->id }}">Like</a> 
+                                | Total likes: <a href="/showLikes/{{ $post->id }}">{{ $post->likes_count }}</a> | <a class="link" href="/like{{ $post->id }}">Like</a> 
                             </p>
                         </form>
                         <div class="row">

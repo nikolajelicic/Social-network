@@ -59,7 +59,7 @@ class FriendshipsController extends Controller
         $senderId = $request->input('senderId');
         $this->friendshipService->acceptFriendRequest($senderId);
         
-        return response()->json(['success'=>true],200);
+        return redirect()->route('profile.addFriends');
     }
 
     public function friendRequests()
@@ -67,5 +67,11 @@ class FriendshipsController extends Controller
         $requests = $this->friendshipService->friendRequests();
         
         return $requests;
+    }
+
+    public function sentRequests()
+    {
+        $sentRequests = $this->friendshipService->sentRequests();
+        return $sentRequests;
     }
 }

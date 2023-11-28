@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/createNewPost', [PostsController::class, 'createNewPost'])->name('post.new');
     Route::delete('/delete-post/{id}', [PostsController::class, 'deletePost'])->name('profile.deletePost');
     Route::put('/editPost', [PostsController::class, 'editPost'])->name('profile.editPost');
-
+    Route::get('showLikes/{postId}', [PostsController::class, 'showLikes'])->name('post.showLikes');
 
     /*Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -37,8 +37,8 @@ class PagesController extends Controller
         $users = $this->pageService->showAddFriendsPage();
         $friends = $this->friendshipsController->getFriends();
         $requests = $this->friendshipsController->friendRequests();
-
-        return view('addFriends', ['users' => $users, 'friends' => $friends, 'requests' => $requests]);
+        $sentRequests = $this->friendshipsController->sentRequests();
+        return view('addFriends', ['users' => $users, 'friends' => $friends, 'requests' => $requests, 'sentRequests' => $sentRequests]);
     }
 
     public function notificationPage()

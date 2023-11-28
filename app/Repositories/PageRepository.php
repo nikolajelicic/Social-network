@@ -114,7 +114,9 @@ class PageRepository implements PageInterface{
 
         $commentIds = Comment::whereIn('post_id', $posts->pluck('id'))->pluck('id');
 
-        $comments = Comment::whereIn('id', $commentIds)->get();
+        $comments = Comment::whereIn('id', $commentIds)
+        ->withCount('likesComment')
+        ->get();
 
         return compact('posts', 'comments');
     }

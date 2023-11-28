@@ -2,7 +2,8 @@ Project Name
 Social-network
 
 Description
-This is a social network made in laravel, it is currently under development.
+
+This is a social network made in Laravel, it is currently under development.
 
 Directory Structure
 

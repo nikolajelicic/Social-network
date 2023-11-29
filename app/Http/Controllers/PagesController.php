@@ -60,4 +60,12 @@ class PagesController extends Controller
         //dd($data);
         return view('friendPosts', ['data' => $data]);
     }
+
+    public function showChatPage()
+    {
+        $messages = null;
+        $friends = $this->friendshipsController->getFriends();
+        //dd($messages);
+        return view('chat', ['friends' => $friends, 'messages' => $messages]);
+    }
 }

@@ -32,4 +32,9 @@ class PageService {
     {
         return $this->pageRepository->showFriendPostsPage();
     }
+
+    public function showChatPage()
+    {
+        return $this->pageRepository->showChatPage();
+    }
 }

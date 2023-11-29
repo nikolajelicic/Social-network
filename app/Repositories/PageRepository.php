@@ -120,4 +120,9 @@ class PageRepository implements PageInterface{
 
         return compact('posts', 'comments');
     }
+
+    public function showChatPage()
+    {
+        
+    }
 }

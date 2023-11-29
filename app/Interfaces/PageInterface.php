@@ -13,4 +13,6 @@ interface PageInterface{
     public function showAddFriendsPage();
 
     public function showFriendPostsPage();
+
+    public function showChatPage();
 }

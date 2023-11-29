@@ -6,6 +6,7 @@ use App\Http\Controllers\LikesController;
 use App\Http\Controllers\CommentLikesController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FriendshipsController;
+use App\Http\Controllers\MessagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [PagesController::class, 'profilePage'])->name('profile.profilePage');
     Route::get('/edit-post/{id}', [PagesController::class, 'showEditPostPage'])->name('profile.showEditPostPage');
     Route::get('/add-friends', [PagesController::class, 'showAddFriendsPage'])->name('profile.addFriends');
+    Route::get('/chat', [PagesController::class, 'showChatPage'])->name('profile.showChatPage');
 
     Route::get('/friends-request', [PagesController::class, 'showFriendsRequest'])->name('profile.showFriendsRequest');
     Route::get('/my-friends', [PagesController::class, 'myFriends'])->name('profile.myFriends');
@@ -62,6 +64,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete-post/{id}', [PostsController::class, 'deletePost'])->name('profile.deletePost');
     Route::put('/editPost', [PostsController::class, 'editPost'])->name('profile.editPost');
     Route::get('showLikes/{postId}', [PostsController::class, 'showLikes'])->name('post.showLikes');
+
+    //message controller
+    Route::get('/chat/{receiver_id}', [MessagesController::class, 'showMessage'])->name('profile.showMessage');
 
     /*Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

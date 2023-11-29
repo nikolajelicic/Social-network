@@ -1,8 +1,9 @@
 Project Name
 Social-network
 
-Description
-This is a social network made in laravel, it is currently under development.
+DESCRIPTION: 
+
+Welcome to My Social Network! This project is a social network that is under active development. Although it is still in the development phase, significant progress has been made in the implementation of various functionalities.
 
 Directory Structure
 

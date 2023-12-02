@@ -16,6 +16,6 @@ class Comment_like extends Model
     }
 
     public function user(){
-        return $this->hasOne(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

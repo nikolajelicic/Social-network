@@ -27,4 +27,9 @@ class NotificationService {
     {
         $this->notificationRepository->markAsRead($id);
     }
+
+    public function sendNotification($receiver_id, $notifiable_type)
+    {
+        $this->notificationRepository->sendNotification($receiver_id, $notifiable_type);
+    }
 }

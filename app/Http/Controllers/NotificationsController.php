@@ -28,4 +28,9 @@ class NotificationsController extends Controller
     {
         return $this->notificationService->markAsRead($id);
     }   
+
+    public function sendNotification($receiver_id, $notifiable_type)
+    {
+        $this->notificationService->sendNotification($receiver_id, $notifiable_type);
+    }
 }

@@ -25,4 +25,14 @@ class CommentLikesController extends Controller
         $this->commentLikeService->unlikeComment($request, $id);
         return redirect()->back();
     }
+
+    public function showWhoIsLikesComment(Request $request, $id)
+    {
+        $data = $this->commentLikeService->showWhoIsLikesComment($id);
+        if($request->ajax()){
+            return response()->json(['data' => $data]);
+        }else{
+            abort(404);
+        }
+    }
 }

@@ -11,4 +11,6 @@ interface MessageInterface{
     public function deleteMessage($id);
 
     public function editMessage($content, $id);
+
+    public function markAsReadMessage($id);
 }

@@ -35,4 +35,13 @@ class CommentLikeRepository implements CommentLikeInterface{
             $existingLike->delete();
         }
     }
+
+    public function showWhoIsLikesComment($id)
+    {
+        $likes = Comment_like::where('comment_id', $id)
+        ->with('user')
+        ->get();
+
+        return $likes;
+    }
 }

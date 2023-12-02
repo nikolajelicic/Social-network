@@ -63,4 +63,47 @@
         </div>
     </section>
 @endforeach
+
+<!-- Modal -->
+<div class="modal fade" id="commentLikesModal" tabindex="-1" aria-labelledby="commentLikesModal" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit message</h1>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+          <form action="{{ route('profile.editMessage') }}" method="POST">
+              @csrf
+              @method('PUT')
+              <div class="modal-body">
+                  <ul class="list-group" id="likes">
+
+                  </ul>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<script>
+  jQuery(document).ready(function(){
+      var button = $('.commentLikes')
+      $(document).on('click', '.commentLikes', function () {
+          var comment_id = $(this).data('comment-id');
+          $.ajax({
+              url: '/commentLikes/' + comment_id ,
+              method: 'GET',
+              dataType: 'JSON',
+              success: function(data){
+                console.log(data)
+                data.forEach(item => {
+                  $('#likes').append(`<li class="list-group-item">${item.user.name}</li>`)
+                });
+              },
+              error: function(error){
+                  console.error(error);
+              }
+          })
+      })
+  })
+</script>
 @endsection

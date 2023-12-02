@@ -63,10 +63,10 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'gender' => $request->gender,
-            'profile_image' => $imageName,
+            'image' => $imageName,
             'slug' => $slug
         ]);
-
+        //dd($user);
         event(new Registered($user));
 
         Auth::login($user);

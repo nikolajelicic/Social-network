@@ -22,4 +22,9 @@ class CommentLikeService {
     {   
         $this->commentLikeRepository->unlikeComment($request, $id);
     }
+
+    public function showWhoIsLikesComment($id)
+    {
+        return $this->commentLikeRepository->showWhoIsLikesComment($id);
+    }
 }

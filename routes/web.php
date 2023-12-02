@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/commentLike{id}', [CommentLikesController::class, 'likeComment'])->name('profile.commentLike');
     Route::delete('/delete-comment/{id}', [CommentsController::class, 'deleteComment'])->name('profile.deleteComment');
     Route::post('/new-comment', [CommentsController::class, 'newComment'])->name('profile.newComment');
+    Route::get('/commentLikes/{id}', [CommentLikesController::class, 'showWhoIsLikesComment'])->name('profile.showWhoIsLikesComment');
 
     //FriendshipsController routes
     Route::post('/add-new-friend',[FriendshipsController::class, 'sendFriendRequest'])->name('profile.newFriendRequest');
@@ -67,6 +68,10 @@ Route::middleware('auth')->group(function () {
 
     //message controller
     Route::get('/chat/{receiver_id}', [MessagesController::class, 'showMessage'])->name('profile.showMessage');
+    Route::post('/newMessage', [MessagesController::class, 'newMessage'])->name('profile.newMessage');
+    Route::post('/deleteMessage', [MessagesController::class, 'deleteMessage'])->name('profile.deleteMessage');
+    Route::put('/editMessage', [MessagesController::class, 'editMessage'])->name('profile.editMessage');
+
 
     /*Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

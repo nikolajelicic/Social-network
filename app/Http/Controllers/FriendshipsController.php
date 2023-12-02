@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateNewPostRequest;
 use App\Services\FriendshipService;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class FriendshipsController extends Controller
 {
     private $friendshipService;
-
-    public function __construct(FriendshipService $friendshipService)
+    private $notificationService;
+    public function __construct(FriendshipService $friendshipService, NotificationService $notificationService)
     {
         $this->friendshipService = $friendshipService;
+        $this->notificationService = $notificationService;
     }
 
     public function sendFriendRequest(Request $request)
@@ -22,7 +24,7 @@ class FriendshipsController extends Controller
         $receiverId = $request->input('friend_id');
 
         $this->friendshipService->sendFriendRequest($senderId, $receiverId);
-
+        $this->notificationService->sendNotification($receiverId, 'friend_request');
         return redirect()->route('profile.addFriends')->with('message', 'Friend request sent.');
     }
 
@@ -41,6 +43,8 @@ class FriendshipsController extends Controller
 
         $this->friendshipService->deleteFriendRequest($senderId, $receiverId);
 
+        $this->notificationService->sendNotification($receiverId, 'delete_friend_request');
+
         return redirect()->route('profile.addFriends')->with('message', 'Friend request rejected.');
     }
 
@@ -58,7 +62,10 @@ class FriendshipsController extends Controller
     {
         $senderId = $request->input('senderId');
         $this->friendshipService->acceptFriendRequest($senderId);
-        
+
+        $receiverId = $senderId;
+        $this->notificationService->sendNotification($receiverId, 'accepted_friend_request');
+
         return redirect()->route('profile.addFriends');
     }
 

@@ -15,4 +15,6 @@ interface PageInterface{
     public function showFriendPostsPage();
 
     public function showChatPage();
+
+    public function profilePageBySlug($slug);
 }

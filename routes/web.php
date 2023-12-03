@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit-post/{id}', [PagesController::class, 'showEditPostPage'])->name('profile.showEditPostPage');
     Route::get('/add-friends', [PagesController::class, 'showAddFriendsPage'])->name('profile.addFriends');
     Route::get('/chat', [PagesController::class, 'showChatPage'])->name('profile.showChatPage');
+    Route::get('/profile/{slug}', [PagesController::class, 'profilePageBySlug'])->name('profile.profilePageBySlug');
 
     Route::get('/friends-request', [PagesController::class, 'showFriendsRequest'])->name('profile.showFriendsRequest');
     Route::get('/my-friends', [PagesController::class, 'myFriends'])->name('profile.myFriends');
@@ -64,7 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/createNewPost', [PostsController::class, 'createNewPost'])->name('post.new');
     Route::delete('/delete-post/{id}', [PostsController::class, 'deletePost'])->name('profile.deletePost');
     Route::put('/editPost', [PostsController::class, 'editPost'])->name('profile.editPost');
-    Route::get('showLikes/{postId}', [PostsController::class, 'showLikes'])->name('post.showLikes');
+    Route::get('/showLikes/{postId}', [PostsController::class, 'showLikes'])->name('post.showLikes');
 
     //message controller
     Route::get('/chat/{receiver_id}', [MessagesController::class, 'showMessage'])->name('profile.showMessage');

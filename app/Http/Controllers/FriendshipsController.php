@@ -25,7 +25,7 @@ class FriendshipsController extends Controller
 
         $this->friendshipService->sendFriendRequest($senderId, $receiverId);
         $this->notificationService->sendNotification($receiverId, 'friend_request');
-        return redirect()->route('profile.addFriends')->with('message', 'Friend request sent.');
+        return redirect()->back()->with('message', 'Friend request sent.');
     }
 
     public static function getFriendsStatus($userId)
@@ -45,7 +45,7 @@ class FriendshipsController extends Controller
 
         $this->notificationService->sendNotification($receiverId, 'delete_friend_request');
 
-        return redirect()->route('profile.addFriends')->with('message', 'Friend request rejected.');
+        return redirect()->back()->with('message', 'Friend request rejected.');
     }
 
     public function getFriends()
@@ -66,7 +66,7 @@ class FriendshipsController extends Controller
         $receiverId = $senderId;
         $this->notificationService->sendNotification($receiverId, 'accepted_friend_request');
 
-        return redirect()->route('profile.addFriends');
+        return redirect()->back();
     }
 
     public function friendRequests()

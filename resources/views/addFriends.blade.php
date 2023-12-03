@@ -10,7 +10,7 @@
                 <ul class="list-group">
                     @foreach($users as $user)
                         <div class="d-flex">
-                            <li class="list-group-item">{{ $user->name }}</li>
+                            <li class="list-group-item"><a class="text-primary" href="profile/{{ $user->slug }}">{{ $user->name }}</a></li>
                             <form action="{{ route('profile.newFriendRequest') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="friend_id" value="{{ $user->id }}">
@@ -29,7 +29,7 @@
                             <h1 class="h1 mt-5">My friends</h1>
                                 @foreach ($friend as $user)
                                     <div class="d-flex">
-                                        <li class="list-group-item">{{ $user->name }}</li>
+                                        <li class="list-group-item"><a class="text-primary" href="profile/{{ $user->slug }}">{{ $user->name }}</a></li>
                                         <form action="{{ route('profile.deleteFriendRequest') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="friend_id" value="{{ $user->id }}">
@@ -50,7 +50,7 @@
                         @foreach ($requests as $request)
                             <h1 class="h1 mt-5">Friend requests</h1>
                                 <div class="d-flex">
-                                    <li class="list-group-item">{{ $request->user->name }}</li>
+                                    <li class="list-group-item"><a class="text-primary" href="profile/{{ $user->slug }}">{{ $user->name }}</a></li>
                                     <form action="{{ route('profile.acceptFriendRequest') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="senderId" value="{{ $request->user->id}}">
@@ -67,7 +67,7 @@
                     <h1 class="h1 mt-5">Sent requests</h1>
                     @foreach ($sentRequests as $sentRequest)
                             <div class="d-flex">
-                                <li class="list-group-item">{{ $sentRequest->friend->name }}</li>
+                                <li class="list-group-item"><a class="text-primary" href="profile/{{ $sentRequest->friend->slug }}">{{ $sentRequest->friend->name }}</a></li>
                                 <form action="{{ route('profile.deleteFriendRequest') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="friend_id" value="{{ $sentRequest->friend->id}}">

@@ -4,12 +4,12 @@
             <form action="/unlikeComment{{ $comment->id }}" method="get">
                 @csrf
                 @method('delete')
-                <p class="justify-content-start"><strong>{{ Auth::user()->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentUnlike{{ $comment->id }}">Unlike</a></p>
+                <p class="justify-content-start"><strong>{{ $comment->user->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentUnlike{{ $comment->id }}">Unlike</a></p>
             </form>
         @else
             <form action="/likeComment{{ $comment->id }}" method="get">
                 @csrf
-                <p class="justify-content-start"><strong>{{ Auth::user()->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentLike{{ $comment->id }}">Like</a></p>
+                <p class="justify-content-start"><strong>{{ $comment->user->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentLike{{ $comment->id }}">Like</a></p>
             </form>
         @endif
         <div class="row">
@@ -20,7 +20,7 @@
                     <button type="submit" class="btn btn-danger">Delete comment</button>
                 </form>
                 @if($comment->user_id == auth()->id())
-                    <a class="btn btn-info" href="/edit-comment/{{ $comment->id }}">Edit comment</a>
+                    <a class="btn btn-info" href="/edit-comment/{{ $comment->id }}">Edit commentt</a>
                 @endif
             </div>
         </div>

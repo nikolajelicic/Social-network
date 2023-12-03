@@ -125,4 +125,62 @@ class PageRepository implements PageInterface{
     {
         
     }
+
+    public function profilePageBySlug($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        $numberOfFriends = Friendship::where(function ($query) use ($user) {
+            $query->where('user_id', $user->id)
+                ->where('status', 'accepted');
+        })
+        ->orWhere(function ($query) use ($user) {
+            $query->where('friend_id', $user->id)
+                ->where('status', 'accepted');
+        })
+        ->count();
+
+        $friend = Friendship::where(function ($query) use ($user) {
+            $query->where('user_id', auth()->id())
+                ->where('friend_id', $user->id);
+        })
+        ->orWhere(function ($query) use ($user) {
+            $query->where('friend_id', auth()->id())
+                ->where('user_id', $user->id);
+        })
+        ->first();
+        
+        $isFriend = 0;
+
+        if($friend){
+            if($friend->status == 'accepted'){
+                 if($friend->user_id !== auth()->id()){
+                     $friendId = $friend->user_id;
+                 }else{
+                     $friendId = $friend->friend_id;
+                 }
+                
+                 $posts = Post::where('user_id', $friendId)
+                     ->withCount('likes')
+                     ->with('user')
+                     ->get();
+                
+                 $commentIds = Comment::whereIn('post_id', $posts->pluck('id'))->pluck('id');
+                
+                 $comments = Comment::whereIn('id', $commentIds)
+                 ->withCount('likesComment')
+                 ->get();
+                 $isFriend = 1;
+                 
+                 return compact('posts', 'comments','user', 'isFriend','numberOfFriends');
+            }else{
+                $status = 'pending';
+                $isFriend = 2;
+
+                return compact('status', 'user', 'isFriend','numberOfFriends');
+            }
+        }else{
+            return compact('user', 'isFriend','numberOfFriends');
+        }
+    }
 }

@@ -37,4 +37,9 @@ class PageService {
     {
         return $this->pageRepository->showChatPage();
     }
+
+    public function profilePageBySlug($slug)
+    {
+        return $this->pageRepository->profilePageBySlug($slug);
+    }
 }

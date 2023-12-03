@@ -375,3 +375,9 @@ ul {
     margin-bottom: 2rem;
     box-shadow: none;
 }
+
+.chatContainerScroll {
+    max-height: 700px;
+    overflow-y: auto; 
+    overflow-x: hidden;
+}

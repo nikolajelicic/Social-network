@@ -42,11 +42,11 @@ class PostsController extends Controller
 
     public function showLikes(Request $request, $postId) //This will be updated to show only the ajax call, to return json and on the frontend it shows the modal and inside the modal who liked the post
     {
-        $likes = $this->postService->showLikes($postId);
+        $data = $this->postService->showLikes($postId);
         if($request->ajax()){
-            return response()->json(['data' => $likes]);
+            return response()->json(['data' => $data]);
         }else{
-            return view('posts.likes', ['likes' => $likes]);
+            return view('posts.likes', ['data' => $data]);
         }   
     }
 }

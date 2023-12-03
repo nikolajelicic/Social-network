@@ -13,7 +13,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-
+        <script src="{{ asset('js/app.js') }}"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -56,5 +56,26 @@
     
         <!-- Page Content -->
         @yield('content')
+
+        <!-- Modal -->
+        <div class="modal fade" id="likesModal" tabindex="-1" aria-labelledby="likesModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit message</h1>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <form action="{{ route('profile.editMessage') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <ul class="list-group" id="likes">
+                            
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+      </div>
     </body>
 </html>

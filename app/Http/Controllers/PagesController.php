@@ -68,4 +68,11 @@ class PagesController extends Controller
         //dd($messages);
         return view('chat', ['friends' => $friends, 'messages' => $messages]);
     }
+
+    public function profilePageBySlug(Request $request, $slug)
+    {
+        $data = $this->pageService->profilePageBySlug($slug);
+        //dd($data);
+        return view('profileBySlug', ['data' => $data]);
+    }
 }

@@ -11,7 +11,7 @@
                       <div class="d-flex text-black">
                         <div class="flex-shrink-0">
                             @if ($data['user']->image != null)
-                                <img src="{{ $data['user']->image }}"
+                                <img src= "{{ asset('storage/profile_images/' . $data['user']->image) }}"
                                 alt="Profile image" class="img-fluid"
                                 style="width: 180px; border-radius: 10px;">
                             @else

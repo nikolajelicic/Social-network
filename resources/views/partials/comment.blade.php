@@ -1,6 +1,6 @@
 <div class="card mb-3 ml-4">
     <div class="card-body">
-        <h6 class="h6">Comment owner: <a href="/friend-profile/{{ $comment->user->slug }}">{{ $comment->user->name }}</a></h6>
+        <h6 class="h6">Comment owner: <a href="/profile/{{ $comment->user->slug }}">{{ $comment->user->name }}</a></h6>
         Total likes: <button data-bs-target="#likesModal" data-bs-toggle="modal" class="commentLikes" data-comment-id="{{ $comment->id }}">{{ $comment->likes_comment_count  }}</button>
         @if($comment->likesComment->contains('user_id', auth()->id()))
             <form action="/unlikeComment{{ $comment->id }}" method="get">

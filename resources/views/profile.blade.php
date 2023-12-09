@@ -3,11 +3,48 @@
 
 @section('content')
     <div class="container">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-md-9 col-lg-7 col-xl-5">
+                <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-4">
+                        <div class="d-flex text-black">
+                            <div class="flex-shrink-0">
+                                @if (auth()->user()->image != null)
+                                    <img src="{{ asset('storage/profile_images/' . auth()->user()->image) }}"
+                                    alt="Profile image" class="img-fluid"
+                                    style="width: 180px; border-radius: 10px;">
+                                    <button data-bs-toggle="modal" data-bs-target="#editPictureModal"  class="btn btn-info mt-4">Edit profile picture</button>
+                                @else
+                                    <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                                    alt="Profile image" class="img-fluid"
+                                    style="width: 180px; border-radius: 10px;">
+                                    <button data-bs-toggle="modal" data-bs-target="#editPictureModal"  class="btn btn-info mt-4">Add a profile picture</button>
+                                @endif
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-1">{{ auth()->user()->name }}</h5>
+                                <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                                  style="background-color: #efefef;">
+                                    <div>
+                                        <p class="small text-muted mb-1">Number of friends</p>
+                                        <p class="mb-0">{{ $data['numberOfFriends'] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-xl-6 offset-xl-3 text-center">
                 @if (session('message'))
                     <div class="div alert alert-success">
                         {{ session('message') }}
+                    </div>
+                @elseif (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
                 @endif
                 <form action="{{ route('post.new') }}" method="POST">

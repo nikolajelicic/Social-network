@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-lg justify-content-end bg-secondary">
             <div class="container">
                 <a class="navbar-brand" href="/">Social network</a>
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse visible">
                     <ul class="navbar-nav navbar-right main-menu">
                         <li class="nav-item">
                             <a href="/profile" class="nav-link">Profile</a>
@@ -37,6 +37,10 @@
                         </li>
                         <li class="nav-item">
                             <a href="/chat" class="nav-link">Message</a>
+                        </li>
+                        <li class="nav-item">
+                            <input type="text" id="searchInput" placeholder="Search users by name">
+                            <ul id="searchResults"></ul>
                         </li>
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}">
@@ -57,7 +61,7 @@
         <!-- Page Content -->
         @yield('content')
 
-        <!-- Modal -->
+        <!-- #likesModal-->
         <div class="modal fade" id="likesModal" tabindex="-1" aria-labelledby="likesModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -77,5 +81,34 @@
                 </div>
             </div>
       </div>
+
+       <!-- #editPictureModal-->
+      <div class="modal fade" id="editPictureModal" tabindex="-1" role="dialog" aria-labelledby="editPictureModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Edit profile image</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('profile.updateImage') }}" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <input id="image" type="file" class="form-control" name="image">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </body>
 </html>

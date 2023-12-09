@@ -24,7 +24,18 @@ class PageRepository implements PageInterface{
         ->get();
         $userPosts = $this->buildCommentTree($userPosts);
 
-        return ['userPosts'=>$userPosts];
+
+        $numberOfFriends = Friendship::where(function ($query){
+            $query->where('user_id', auth()->id())
+                ->where('status', 'accepted');
+        })
+        ->orWhere(function ($query){
+            $query->where('friend_id', auth()->id())
+                ->where('status', 'accepted');
+        })
+        ->count();
+
+        return ['userPosts' => $userPosts, 'numberOfFriends' => $numberOfFriends];
     }
 
     protected function buildCommentTree($comments, $parentId = null)

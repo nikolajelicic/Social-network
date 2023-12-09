@@ -38,4 +38,38 @@ jQuery(document).ready(function(){
             }
         })
     })
+
+    $('#searchButton').on('click', function() {
+      executeSearch();
+    });
+
+    $('#searchInput').on('input', function() {
+        executeSearch();
+    });
+
+    function executeSearch() {
+        let searchTerm = $('#searchInput').val();
+
+        if (searchTerm.length >= 2) {
+            $.ajax({
+                url: `/search-users?search=${searchTerm}`,
+                method: 'GET',
+                dataType: 'json',
+                success: function(users) {
+                    let searchResults = $('#searchResults');
+                    searchResults.empty();
+
+                    users.forEach(user => {
+                      let listItem = $('<a class="dropdown-item"></a>').attr('href', `/profile/${user.slug}`).text(user.name);
+                      searchResults.append(listItem);
+                    });
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        } else {
+            $('#searchResults').empty();
+        }
+    }
 })

@@ -47,12 +47,15 @@
                                             <li class="person" data-chat="person1">
                                                 <a href="{{ $friend->id }}">
                                                     <div class="user">
-                                                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                                                        @if (Auth::user()->image != null)
+                                                            <img src="{{ asset('storage/profile_images/' . $friend->image) }}" alt="profile img">
+                                                        @else
+                                                            <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="profile img">
+                                                        @endif
                                                         <span class="status busy"></span>
                                                     </div>
                                                     <p class="name-time">
                                                         <span class="name">{{ $friend->name }}</span>
-                                                        <span class="time">15/02/2019</span>
                                                     </p>
                                                 </a>
                                             </li>
@@ -66,7 +69,6 @@
                                                         </div>
                                                         <p class="name-time">
                                                             <span class="name">{{ $user->name }}</span>
-                                                            <span class="time">15/02/2019</span>
                                                         </p>
                                                     </a>
                                                 </li>
@@ -104,7 +106,11 @@
                                             @if ($message->sender_id == auth()->id())
                                                 <li class="chat-right">
                                                     <div class="chat-avatar">
-                                                        <img src="{{ asset('profile_images/' . Auth::user()->image)  }}" alt="Retail Admin">
+                                                        @if (Auth::user()->image != null)
+                                                            <img src="{{ asset('storage/profile_images/' . Auth::user()->image) }}" alt="profile img">
+                                                        @else
+                                                            <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="profile img">
+                                                        @endif
                                                         <div class="chat-name">{{  Auth::user()->name }}</div>
                                                     </div>
                                                     <div class="chat-text">
@@ -142,7 +148,11 @@
                                             @else
                                                 <li class="chat-left">
                                                     <div class="chat-avatar">
-                                                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                                                        @if ($message->user->image != null)
+                                                            <img src="{{ asset('storage/profile_images/' . $message->user->image) }}" alt="profile img">
+                                                        @else
+                                                            <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="profile img">
+                                                        @endif
                                                         <div class="chat-name">{{ $message->user->name }}</div>
                                                     </div>
                                                     <div class="chat-text">

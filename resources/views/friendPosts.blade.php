@@ -27,7 +27,7 @@
                             <div class="small d-flex justify-content-start">
                               <a href="#!" class="d-flex align-items-center me-3">
                                 <i class="far fa-thumbs-up me-2"></i>
-                                <button data-bs-toggle="modal" data-bs-target="#likesModal" data-post-id="{{ $post->id }}" class="postLikes" class="mb-0">Total likes: {{ $post->likes_count }}</button>
+                                <button data-bs-toggle="modal" data-bs-target="#likesModal" data-post-id="{{ $post->id }}" class="postLikes mb-0">Total likes: {{ $post->likes_count }}</button>
                               </a>
                               @php
                                   $userLiked = $post->likes->contains('user_id', Auth::id());

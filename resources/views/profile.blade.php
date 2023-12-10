@@ -64,6 +64,7 @@
                     @php
                         $userLiked = $post->likes->contains('user_id', Auth::id());
                     @endphp
+                    | Total likes: <button data-bs-toggle="modal" data-bs-target="#likesModal" data-post-id="{{ $post->id }}" class="postLikes mb-0">{{ $post->likes_count }}</button>
                     @if($userLiked)
                         <form action="/unlike{{ $post->id }}" method="get">
                             @csrf
@@ -71,7 +72,7 @@
                             <p class="justify-content-start">
                                 <strong>{{ Auth::user()->name }}</strong> 
                                 | Post created: {{ \Carbon\Carbon::parse($post->created_at)->format('D M j H:i:s') }} 
-                                | Total likes: <a href="/showLikes/{{ $post->id }}">{{ $post->likes_count }}</a> | <a class="link" href="/unlike{{ $post->id }}">Unlike</a> 
+                                | <a class="link" href="/unlike{{ $post->id }}">Unlike</a> 
                             </p>
                         </form>
                         <button class="btn btn-info"><a href="/edit-post/{{ $post->id }}">Edit</a></button>
@@ -86,7 +87,7 @@
                             <p class="justify-content-start">
                                 <strong>{{ Auth::user()->name }}</strong> 
                                 | Post created: {{ \Carbon\Carbon::parse($post->created_at)->format('D M j H:i:s') }} 
-                                | Total likes: <a href="/showLikes/{{ $post->id }}">{{ $post->likes_count }}</a> | <a class="link" href="/like{{ $post->id }}">Like</a> 
+                                | <a class="link" href="/like{{ $post->id }}">Like</a> 
                             </p>
                         </form>
                         <div class="row">

@@ -1,15 +1,16 @@
 @foreach($comments as $comment)
     <div class="comment mb-3 ml-3">
+        Total number of comment likes: <button data-bs-target="#likesModal" data-bs-toggle="modal" class="commentLikes" data-comment-id="{{ $comment->id }}">{{ $comment->likes_comment_count  }}</button>
         @if($comment->likesComment->contains('user_id', auth()->id()))
             <form action="/unlikeComment{{ $comment->id }}" method="get">
                 @csrf
                 @method('delete')
-                <p class="justify-content-start"><strong>{{ $comment->user->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentUnlike{{ $comment->id }}">Unlike</a></p>
+                <p class="justify-content-start"><strong>{{ $comment->user->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | <a class="link" href="/commentUnlike{{ $comment->id }}">Unlike</a></p>
             </form>
         @else
             <form action="/likeComment{{ $comment->id }}" method="get">
                 @csrf
-                <p class="justify-content-start"><strong>{{ $comment->user->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | Total likes: <a href="/commentLikes/{{ $comment->id }}">{{ $comment->likes_comment_count }}</a> | <a class="link" href="/commentLike{{ $comment->id }}">Like</a></p>
+                <p class="justify-content-start"><strong>{{ $comment->user->name }}</strong> | Post created: {{ \Carbon\Carbon::parse($comment->created_at)->format('D M j H:i:s') }} | <a class="link" href="/commentLike{{ $comment->id }}">Like</a></p>
             </form>
         @endif
         <div class="row">

@@ -1,5 +1,4 @@
 jQuery(document).ready(function(){
-    var button = $('.postLikes')
     $(document).on('click', '.postLikes', function () {
       $('#likes').empty();
         var post_id = $(this).data('post-id');
@@ -8,18 +7,17 @@ jQuery(document).ready(function(){
             method: 'GET',
             dataType: 'JSON',
             success: function(data){
-              console.log(data)
+              //console.log(data)
               data.data.forEach(item => {
                 $('#likes').append(`<li class="list-group-item">${item.user.name}</li>`)
               });
             },
             error: function(error){
-                console.error(error);
+                //console.error(error);
             }
         })
     })
 
-    var button = $('.commentLikes')
     $(document).on('click', '.commentLikes', function () {
       $('#likes').empty();
         var comment_id = $(this).data('comment-id');
@@ -28,13 +26,13 @@ jQuery(document).ready(function(){
             method: 'GET',
             dataType: 'JSON',
             success: function(data){
-              console.log(data)
+              //console.log(data)
               data.data.forEach(item => {
                 $('#likes').append(`<li class="list-group-item">${item.user.name}</li>`)
               });
             },
             error: function(error){
-                console.error(error);
+                //console.error(error);
             }
         })
     })
@@ -65,7 +63,7 @@ jQuery(document).ready(function(){
                     });
                 },
                 error: function(error) {
-                    console.error('Error:', error);
+                    //console.error('Error:', error);
                 }
             });
         } else {

@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/friend-posts', [PagesController::class, 'showFriendPostsPage'])->name('profile.showFriendPostsPage');
 
     //LikesController routes
-    Route::get('/like{id}', [LikesController::class, 'likePost'])->name('profile.likePost');
     Route::get('/unlike{id}', [LikesController::class, 'unlikePost'])->name('profile.unlikePost');
 
     //CommentLikesController routes
@@ -52,7 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/commentLike{id}', [CommentLikesController::class, 'likeComment'])->name('profile.commentLike');
     Route::delete('/delete-comment/{id}', [CommentsController::class, 'deleteComment'])->name('profile.deleteComment');
     Route::post('/new-comment', [CommentsController::class, 'newComment'])->name('profile.newComment');
-    Route::get('/commentLikes/{id}', [CommentLikesController::class, 'showWhoIsLikesComment'])->name('profile.showWhoIsLikesComment');
 
     //FriendshipsController routes
     Route::post('/add-new-friend',[FriendshipsController::class, 'sendFriendRequest'])->name('profile.newFriendRequest');

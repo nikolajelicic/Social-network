@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentLikesController;
+use App\Http\Controllers\LikesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('/like{id}', [LikesController::class, 'likePost'])->name('profile.likePost');
+    Route::get('/commentLikes/{id}', [CommentLikesController::class, 'showWhoIsLikesComment'])->name('profile.showWhoIsLikesComment');
+
 });

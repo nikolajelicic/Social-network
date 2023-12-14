@@ -55,7 +55,7 @@ Controllers handle HTTP requests, using services and repositories to retrieve an
 
 
 How to Run:
-Clone the repository:  git clone https://github.com/your-username/MySocialNetwork.git
+Clone the repository:  git clone https://github.com/nikolajelicic/Social-network
 
 Install dependencies: composer install
 
